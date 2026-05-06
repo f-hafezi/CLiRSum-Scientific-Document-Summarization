@@ -60,9 +60,6 @@ task_weights = {
     3: 0.5   # Title generation
 }
 
-# Dataset:
-The training dataset used in this project can be downloaded from the following link:
-https://drive.google.com/file/d/15CrPq3Nux3WTTpxR6MYBnnyTO4ZwEJoD/view?usp=sharing
 
 # Evaluation
 
