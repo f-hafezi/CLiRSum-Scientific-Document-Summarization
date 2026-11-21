@@ -53,12 +53,7 @@ Stage 2: Multi-Task Learning
 - Weighted loss per task:
 
 
-task_weights = {
-    0: 2.0,  # Introduction (most important)
-    1: 1.5,  # Abstract
-    2: 1.0,  # Abstract from intro
-    3: 0.5   # Title generation
-}
+
 
 
 # Evaluation
