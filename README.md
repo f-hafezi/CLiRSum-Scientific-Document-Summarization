@@ -15,7 +15,7 @@ The framework jointly addresses four tasks:
 
 - **Backbone:** BART-Large
 - **Framework:** Hugging Face Transformers
-- **Learning Paradigm:** Multi-Task Sequence-to-Sequence Learning
+- **Training Strategy:** Simultaneous Learning (Sim)
 - **Architecture:** Shared Encoder-Decoder
 - **Loss:** Task-Weighted Cross-Entropy
 
