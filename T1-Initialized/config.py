@@ -3,6 +3,9 @@
 Set paths through environment variables or edit the defaults below.
 """
 import os
+DYNAMIC_TEMPERATURE,
+DYNAMIC_MOMENTUM,
+TASK_LOSS_HISTORY_SIZE,
 
 MODEL_PATH = os.getenv("BART_MODEL_PATH", "./pretrained/bart_large")
 DATASET_PATH = os.getenv("BART_DATASET_PATH", "./data/train_dataset.csv")
