@@ -23,22 +23,29 @@ class CustomTrainer(Trainer):
         *args,
         **kwargs
     ):
-
         super().__init__(*args, **kwargs)
 
+        # Loss function
         self.custom_loss = MultiTaskLoss(
             task_weights=task_weights,
             pad_token_id=pad_token_id,
             target_max_lengths=target_max_lengths
         )
 
+        # Dynamic weighting settings
         self.dynamic_task_weighting = dynamic_task_weighting
         self.temperature = temperature
         self.momentum = momentum
         self.num_tasks = num_tasks
         self.history_size = history_size
 
-        # Initialize task weights
+        if self.temperature <= 0:
+            raise ValueError("Temperature must be greater than zero.")
+
+        if not 0 <= self.momentum < 1:
+            raise ValueError("Momentum must be in the range [0, 1).")
+
+        # Initialize normalized task weights
         initial_weights = task_weights or {
             i: 1.0 for i in range(num_tasks)
         }
@@ -56,15 +63,18 @@ class CustomTrainer(Trainer):
             for i in range(num_tasks)
         }
 
-        # Recent loss history for each task
+        # Store recent losses for each task
         self.task_loss_history = {
-            i: []
-            for i in range(num_tasks)
+            i: [] for i in range(num_tasks)
         }
 
     def update_task_weights(self, task_ids, sample_losses):
+        """
+        Update task weights using recent task losses,
+        softmax normalization, and exponential moving average.
+        """
 
-        # Store recent losses separately for each task
+        # Collect the average loss for each task in this batch
         for task_id in range(self.num_tasks):
 
             mask = task_ids == task_id
@@ -77,20 +87,19 @@ class CustomTrainer(Trainer):
                     current_loss
                 )
 
+                # Keep only the most recent observations
                 self.task_loss_history[task_id] = (
-                    self.task_loss_history[task_id][
-                        -self.history_size:
-                    ]
+                    self.task_loss_history[task_id][-self.history_size:]
                 )
 
-        # Wait until every task has at least one observation
+        # Do not update until all tasks have observations
         if any(
             len(self.task_loss_history[i]) == 0
             for i in range(self.num_tasks)
         ):
             return
 
-        # Calculate average recent loss
+        # Calculate average recent loss for each task
         average_losses = torch.tensor(
             [
                 sum(self.task_loss_history[i])
@@ -100,7 +109,7 @@ class CustomTrainer(Trainer):
             dtype=torch.float32
         )
 
-        # Softmax-based dynamic weighting
+        # Higher-loss tasks receive higher weights
         new_weights = F.softmax(
             average_losses / self.temperature,
             dim=0
@@ -117,11 +126,11 @@ class CustomTrainer(Trainer):
                 (1.0 - self.momentum) * new_weights[i].item()
             )
 
-        # Normalize weights
-        total = sum(updated_weights.values())
+        # Normalize the updated weights
+        total_weight = sum(updated_weights.values())
 
         self.task_weights = {
-            i: updated_weights[i] / total
+            i: updated_weights[i] / total_weight
             for i in range(self.num_tasks)
         }
 
@@ -138,6 +147,7 @@ class CustomTrainer(Trainer):
         labels = inputs.pop("labels")
         task_ids = inputs.pop("task_id")
 
+        # Forward pass
         outputs = model(
             **inputs,
             labels=labels
@@ -150,7 +160,7 @@ class CustomTrainer(Trainer):
             task_ids
         )
 
-        # Dynamic updates only during Stage 2 training
+        # Update weights only during multi-task training
         if self.dynamic_task_weighting and model.training:
 
             self.update_task_weights(
@@ -158,7 +168,7 @@ class CustomTrainer(Trainer):
                 sample_losses.detach()
             )
 
-        # Calculate weighted loss
+        # Calculate total task-weighted loss
         total_loss = outputs.logits.new_zeros(())
 
         for task_id in range(self.num_tasks):
@@ -170,17 +180,14 @@ class CustomTrainer(Trainer):
                 task_loss = sample_losses[mask].mean()
 
                 if self.dynamic_task_weighting:
-
                     weight = self.task_weights[task_id]
-
                 else:
-
-                    # Stage 1: no multi-task weighting
+                    # Stage 1: ordinary single-task training
                     weight = 1.0
 
                 total_loss = total_loss + weight * task_loss
 
-        # Log current weights
+        # Print dynamic weights every 100 optimizer steps
         if (
             self.dynamic_task_weighting
             and model.training
@@ -189,10 +196,8 @@ class CustomTrainer(Trainer):
         ):
 
             print(
-                "\nStep:",
-                self.state.global_step,
-                "\nDynamic Task Weights:",
-                self.task_weights
+                f"\nStep: {self.state.global_step}"
+                f"\nDynamic Task Weights: {self.task_weights}"
             )
 
         return (
