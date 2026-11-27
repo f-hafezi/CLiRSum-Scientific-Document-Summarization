@@ -5,8 +5,10 @@ from transformers import (
     BartForConditionalGeneration,
     TrainingArguments
 )
+
 import pandas as pd
 import os
+
 from sklearn.model_selection import train_test_split
 
 from dataset import MultiTaskDataset, SingleTaskDataset
@@ -98,14 +100,15 @@ target_max_lengths = {
 }
 
 
-# --------------------------------
-# Stage 1: Single-task T1 Training
-# --------------------------------
+# =====================================
+# Stage 1: Single-task T1 Initialization
+# =====================================
 
-print("Starting T1 single-task initialization...")
+print("Starting T1 single-task training...")
 
 
 task0_trainer = CustomTrainer(
+
     model=model,
 
     args=TrainingArguments(
@@ -130,13 +133,16 @@ task0_trainer = CustomTrainer(
 
     train_dataset=task0_train_dataset,
     eval_dataset=task0_eval_dataset,
+
     data_collator=data_collator,
 
-    # No multi-task weights in Stage 1
     task_weights=None,
 
     pad_token_id=tokenizer.pad_token_id,
-    target_max_lengths=target_max_lengths
+
+    target_max_lengths=target_max_lengths,
+
+    dynamic_task_weighting=False
 )
 
 
