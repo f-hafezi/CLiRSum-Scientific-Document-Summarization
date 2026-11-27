@@ -2,63 +2,57 @@
 
 ## Overview
 
-This study uses the arXiv scientific article dataset, a large-scale collection of research papers from multiple scientific fields. The dataset contains scientific articles together with their abstracts, titles, introductions, full-text content, and section-level information.
+This study uses the arXiv scientific article dataset released by Cohan et al. [1]. The original dataset consists of long and structured scientific articles obtained from the arXiv repository, including article identifiers, abstracts, full-text content, and section-level information.
 
-The dataset used in this study was prepared from the original arXiv dataset and processed to support the multi-task scientific document generation experiments.
+The dataset used in this study was derived from the original arXiv collection through article selection and additional preprocessing to support the CLiRSum multi-task scientific document generation experiments. Article titles and Introduction sections were extracted separately using the corresponding article identifiers and section-level information.
 
-## Dataset Sources and Splits
+## Original Dataset Sources
 
-The dataset used in the experiments consists of the following subsets:
+The original dataset and its associated resources are available through the following sources:
 
-- **Training and Validation Dataset:** 20,000 randomly selected articles from the original arXiv dataset, divided into 18,000 training articles and 2,000 validation articles.
-- **Test Dataset:** 6,440 articles from the original arXiv test partition, kept separate from the training and validation data.
+- **Original dataset repository:** https://github.com/armancohan/long-summarization
+- **arXiv dataset download mirror:** https://archive.org/download/armancohan-long-summarization-paper-code/arxiv-dataset.zip
+- **Original research paper:** https://aclanthology.org/N18-2097/
+- **arXiv version of the paper:** https://arxiv.org/abs/1804.05685
+- **arXiv repository:** https://arxiv.org/
 
-The 20,000-article dataset used for training and validation is available through the following link:
+## Dataset Splits
 
-[Download the 20,000-Article Dataset](https://drive.google.com/file/d/1SA3Y-PmdO3RdTmr6WXqEqhiqetE1E5WN/view?usp=sharing)
+The experiments use the following data partitions:
 
-The test dataset is derived from the original arXiv test partition and contains the same data fields as the training and validation dataset.
+- **Training and Validation:** 20,000 randomly selected articles, including 18,000 training articles and 2,000 validation articles.
+- **Test:** 6,440 articles from the original arXiv test partition, kept separate from the training and validation data.
 
 ## Dataset Structure
 
-The dataset is provided in CSV format and contains the following columns:
+The processed dataset is provided in CSV format and contains the following columns:
 
 | Column | Description |
 |---|---|
 | `article_id` | Unique identifier of the scientific article. |
 | `abstract_text` | Abstract of the article. |
-| `title` | Title of the scientific article. |
-| `introduction_text` | Extracted Introduction section of the article. |
+| `title` | Article title retrieved using the arXiv API. |
+| `introduction_text` | Introduction section extracted from the section-level information. |
 | `article_text_no_intro` | Article text with the Introduction section removed. |
 | `article_text` | Complete article text. |
-| `section_names` | List of section names identified in the article. |
-| `sections` | List of textual contents corresponding to the article sections. |
+| `section_names` | List of section names. |
+| `sections` | Textual contents corresponding to the article sections. |
 
 ## Dataset Preprocessing
 
-The Introduction section was identified using the section-level information provided in the original dataset. Specifically, the section-name list was searched to locate the Introduction, and the corresponding text was extracted from the section-text list.
-
-The extracted Introduction was subsequently searched within the complete article text, and the matching text was removed to construct `article_text_no_intro`. The extracted Introduction was retained separately as the target text for the introduction-generation task and as an additional input for the abstract-generation task in the T2-AddIntro variants.
-
-The resulting dataset provides the textual fields required for the multi-task generation experiments, including article-to-introduction generation, article-to-abstract generation, introduction-to-abstract generation, and abstract-to-title generation.
+The Introduction section was identified using the section-level information in the original dataset. The corresponding text was extracted and removed from the complete article text to construct `article_text_no_intro`. Article titles were retrieved separately from the arXiv API using the corresponding article identifiers.
 
 ## Dataset Variants
 
-Two dataset variants were constructed to investigate the effects of different source-input selection strategies under the input-length constraints of BART:
+Two dataset variants were constructed to investigate different source-input selection strategies under BART's input-length constraints:
 
-- **Dataset 1:** Uses beginning-of-text truncation to construct model inputs.
-- **Dataset 2:** Selects input text from four segments of the article for the article-based tasks (T1 and T2).
-
-The two variants are used to investigate input selection strategies and their effects on input-length statistics and semantic coverage.
-
-## Data Availability
-
-The training and validation dataset containing 20,000 articles is available through the Google Drive link provided above.
-
-The test dataset consists of the original arXiv test partition containing 6,440 articles and is maintained separately from the training and validation data.
+- **Dataset 1:** Uses beginning-of-text truncation.
+- **Dataset 2:** Selects input text from four article segments for the article-based tasks (T1 and T2).
 
 ## Citation
 
-If you use this dataset or the associated code in your research, please cite the corresponding publication:
+If you use the original arXiv dataset, please cite the following publication:
 
-*[Add the paper citation here after publication or acceptance.]*
+Cohan, A., Dernoncourt, F., Kim, D. S., Bui, T., Kim, S., Chang, W., & Goharian, N. (2018). A Discourse-Aware Attention Model for Abstractive Summarization of Long Documents. *Proceedings of the 2018 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies*, 615–621.
+
+https://doi.org/10.18653/v1/N18-2097
