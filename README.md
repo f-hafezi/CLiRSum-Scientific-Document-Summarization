@@ -47,6 +47,9 @@ Two model configurations are provided:
 | `Model_T1-Init + T2-AddIntro/` | Model incorporating T1 initialization and the T2 input configuration with the Introduction preserved. |
 
 
+## Citation
+
+If you use this repository, its code, or the provided models in your research, please cite our work:   
 
 ## License
 
