@@ -1,66 +1,63 @@
-Multi-Task Text Generation with BART (Introduction, Abstract, Title Generation)
+# CLiRSum: Exploiting Cross-Level Information Relationships for Multi-Task Scientific Document Summarization
 
-This repository implements a multi-task learning framework based on BART (Bidirectional and Auto-Regressive Transformers) for structured scientific text generation.
+This repository presents **CLiRSum**, a multi-task learning framework based on **BART (Bidirectional and Auto-Regressive Transformers)** for scientific document summarization and structured text generation.
 
-The model is trained to perform four related NLP tasks jointly:
+The framework exploits cross-level information relationships within scientific documents through a shared encoder-decoder architecture, enabling multiple related generation tasks to be learned within a unified model.
 
-- Generate Introduction from full article
-- Generate Abstract from full article
-- Generate Abstract from Introduction
-- Generate Title from Abstract
+## Tasks
 
-Instead of training separate models for each task, we use a single shared encoder-decoder architecture (BART) with:
+CLiRSum is designed to perform four complementary NLP tasks:
 
-- Task-specific prefixes
-- Task-aware loss weighting
-- Length-aware decoding
-- Multi-stage training (single-task → multi-task)
+- **T1 – Introduction Generation:** Generate an introduction from a full scientific article.
+- **T2 – Abstract Generation:** Generate an abstract from a full scientific article.
+- **T3 – Abstract Generation from Introduction:** Generate an abstract using the introduction as input.
+- **T4 – Title Generation:** Generate a title from an abstract.
 
-This improves:
-- Generalization
-- Parameter efficiency
-- Cross-task knowledge transfer
+## Methodology
 
+The framework is built upon a shared BART architecture and incorporates:
 
+- Task-specific prefixes for identifying generation objectives.
+- Task-aware loss weighting for balancing multiple learning objectives.
+- Multi-stage training, combining task-specific initialization with joint multi-task learning.
+- Task-dependent sequence lengths and generation configurations.
 
-# Model Architecture
+The training strategy first initializes the model using the introduction generation task (T1), followed by multi-task training involving the four generation objectives.
 
-We use:
+## Model Architecture
 
-- Backbone: BART (Facebook AI)
-- Framework: HuggingFace Transformers
-- Training style: Multi-task seq2seq learning
-- Loss: Weighted Cross Entropy per task
+- **Backbone:** BART
+- **Framework:** Hugging Face Transformers
+- **Learning Paradigm:** Multi-Task Sequence-to-Sequence Learning
+- **Training Objective:** Task-Weighted Cross-Entropy Loss
+- **Architecture:** Shared Encoder-Decoder
 
-Each task is conditioned using a prefix token strategy:
+Task-specific prefixes:
 
-generate_introduction
-generate_abstract
-generate_abstract_from_intro
-generate_title
+```text
+generate_introduction:
+generate_abstract:
+generate_abstract_from_intro:
+generate_title:
+```
 
+## Trained Models
 
+Two trained model configurations are provided in this repository:
 
+| Directory | Description |
+|---|---|
+| `T1-Initialized/` | Model initialized through single-task training on T1 (Introduction Generation). |
+| `Model_T1-Init + T2-AddIntro/` | Final model configuration incorporating T1 initialization and the additional T2-related training setup. |
 
-# Training Strategy
-
-Stage 1: Single-Task Pretraining
-- Train only Task 0 (Introduction generation)
-- Stabilizes encoder understanding of long scientific text
-
-Stage 2: Multi-Task Learning
-- Joint training on all tasks
-- Weighted loss per task:
-
-
+Each directory contains the corresponding model artifacts and associated files required for using the trained model.
 
 
 
-# Evaluation
+## Research Focus
 
-src/evaluation.py
+CLiRSum investigates how cross-level information relationships and shared representations can support scientific document summarization. By jointly learning article-to-section and section-to-section generation objectives, the framework explores a unified approach to generating interconnected components of scientific documents.
 
-## Appendix
-See appendix.md for experimental results tables.
+## License
 
-
+Please refer to the repository license for terms of use.
