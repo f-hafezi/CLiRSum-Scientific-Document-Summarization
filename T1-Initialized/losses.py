@@ -1,28 +1,72 @@
-"""Task-weighted loss used by the custom Trainer."""
+
+"""Dynamic multi-task loss computation."""
+
 import torch
-from torch import nn
+import torch.nn as nn
+import torch.nn.functional as F
 
 
 class MultiTaskLoss(nn.Module):
-    def __init__(self, task_weights, pad_token_id, target_max_lengths):
+
+    def __init__(
+        self,
+        task_weights,
+        pad_token_id,
+        target_max_lengths
+    ):
         super().__init__()
-        self.task_weights = task_weights
+
+        self.task_weights = task_weights or {}
         self.pad_token_id = pad_token_id
         self.target_max_lengths = target_max_lengths
-        self.loss_fn = nn.CrossEntropyLoss(ignore_index=pad_token_id)
 
-    def forward(self, outputs, labels, task_ids):
-        total_loss = outputs.logits.new_zeros(())
+    def compute_task_losses(self, outputs, labels, task_ids):
+
+        logits = outputs.logits
         batch_size = labels.size(0)
 
-        for i in range(batch_size):
-            task_id = int(task_ids[i].item())
-            max_length = self.target_max_lengths[task_id]
-            sample_logits = outputs.logits[i, :max_length, :].contiguous().view(
-                -1, outputs.logits.size(-1)
-            )
-            sample_labels = labels[i, :max_length].contiguous().view(-1)
-            sample_loss = self.loss_fn(sample_logits, sample_labels)
-            total_loss = total_loss + self.task_weights.get(task_id, 1.0) * sample_loss
+        sample_losses = []
 
-        return total_loss / max(batch_size, 1)
+        for i in range(batch_size):
+
+            task_id = int(task_ids[i].item())
+
+            max_length = self.target_max_lengths[task_id]
+
+            current_length = min(
+                max_length,
+                labels.size(1),
+                logits.size(1)
+            )
+
+            sample_logits = logits[i, :current_length, :]
+            sample_labels = labels[i, :current_length]
+
+            loss_sum = F.cross_entropy(
+                sample_logits.contiguous().view(
+                    -1, logits.size(-1)
+                ),
+                sample_labels.contiguous().view(-1),
+                ignore_index=self.pad_token_id,
+                reduction="sum"
+            )
+
+            valid_tokens = (
+                sample_labels != self.pad_token_id
+            ).sum().clamp(min=1)
+
+            sample_loss = loss_sum / valid_tokens
+
+            sample_losses.append(sample_loss)
+
+        return torch.stack(sample_losses)
+
+    def forward(self, outputs, labels, task_ids):
+
+        sample_losses = self.compute_task_losses(
+            outputs,
+            labels,
+            task_ids
+        )
+
+        return sample_losses.mean()
