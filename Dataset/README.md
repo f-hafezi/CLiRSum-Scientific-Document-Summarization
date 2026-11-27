@@ -2,26 +2,29 @@
 
 ## Overview
 
-This study uses the arXiv scientific article dataset released by Cohan et al. [1]. The original dataset consists of long and structured scientific articles obtained from the arXiv repository, including article identifiers, abstracts, full-text content, and section-level information.
+This study uses the arXiv scientific article dataset released by Cohan et al. [1]. The original dataset consists of scientific articles obtained from the arXiv repository, including article identifiers, abstracts, full-text content, and section-level information.
 
-The dataset used in this study was derived from the original arXiv collection through article selection and additional preprocessing to support the CLiRSum multi-task scientific document generation experiments. Article titles and Introduction sections were extracted separately using the corresponding article identifiers and section-level information.
+Based on this original collection, a processed dataset was prepared for the CLiRSum multi-task scientific document summarization experiments. Additional preprocessing was performed to extract article titles and Introduction sections and construct the textual fields required for the experimental tasks.
 
-## Original Dataset Sources
+## Dataset Sources
 
 The original dataset and its associated resources are available through the following sources:
 
 - **Original dataset repository:** https://github.com/armancohan/long-summarization
-- **arXiv dataset download mirror:** https://archive.org/download/armancohan-long-summarization-paper-code/arxiv-dataset.zip
+- **Original arXiv dataset download mirror:** https://archive.org/download/armancohan-long-summarization-paper-code/arxiv-dataset.zip
 - **Original research paper:** https://aclanthology.org/N18-2097/
 - **arXiv version of the paper:** https://arxiv.org/abs/1804.05685
 - **arXiv repository:** https://arxiv.org/
 
-## Dataset Splits
+## Processed Dataset Used in This Study
 
-The experiments use the following data partitions:
+The processed dataset generated from the original arXiv collection and used in this study is available at the following link:
 
-- **Training and Validation:** 20,000 randomly selected articles, including 18,000 training articles and 2,000 validation articles.
-- **Test:** 6,440 articles from the original arXiv test partition, kept separate from the training and validation data.
+**[Download the Processed CLiRSum Dataset](YOUR_PUBLIC_DATASET_LINK)**
+
+The training and validation subset contains 20,000 randomly selected articles, comprising 18,000 training articles and 2,000 validation articles.
+
+The original arXiv test partition, containing 6,440 articles, was kept separate and used for testing.
 
 ## Dataset Structure
 
@@ -35,19 +38,23 @@ The processed dataset is provided in CSV format and contains the following colum
 | `introduction_text` | Introduction section extracted from the section-level information. |
 | `article_text_no_intro` | Article text with the Introduction section removed. |
 | `article_text` | Complete article text. |
-| `section_names` | List of section names. |
+| `section_names` | List of section names identified in the article. |
 | `sections` | Textual contents corresponding to the article sections. |
 
 ## Dataset Preprocessing
 
-The Introduction section was identified using the section-level information in the original dataset. The corresponding text was extracted and removed from the complete article text to construct `article_text_no_intro`. Article titles were retrieved separately from the arXiv API using the corresponding article identifiers.
+The Introduction section was identified using the section-level information in the original dataset. Specifically, the section-name list was searched to locate the Introduction, and the corresponding text was extracted from the section-text list.
+
+The extracted Introduction was then searched within the complete article text and removed to construct `article_text_no_intro`. Article titles were retrieved separately from the arXiv API using their corresponding article identifiers.
 
 ## Dataset Variants
 
 Two dataset variants were constructed to investigate different source-input selection strategies under BART's input-length constraints:
 
-- **Dataset 1:** Uses beginning-of-text truncation.
+- **Dataset 1:** Uses beginning-of-text truncation to construct model inputs.
 - **Dataset 2:** Selects input text from four article segments for the article-based tasks (T1 and T2).
+
+These variants were used to investigate the effects of input selection strategies on input-length statistics and semantic coverage.
 
 ## Citation
 
