@@ -1,8 +1,19 @@
+# CLiRSum: Exploiting Cross-Level Information Relationships for Multi-Task Scientific Document Summarization
+
+**Authors:** Fahimeh Hafezi¹, Marziea Rahimi¹*, and Zahra Rahimi²
+
+**Corresponding Author:** Marziea Rahimi  
+**Email:** Marziea.rahimi@shahroodut.ac.ir
+
+---
+
 # Dataset
 
 ## Overview
 
-This study uses the arXiv scientific article dataset released by Cohan et al. [1]. The original dataset consists of scientific articles obtained from the arXiv repository, including article identifiers, abstracts, full-text content, and section-level information.
+This repository provides the datasets and associated resources used in the study entitled **"CLiRSum: Exploiting Cross-Level Information Relationships for Multi-Task Scientific Document Summarization."**
+
+The study uses the arXiv scientific article dataset released by Cohan et al. [1]. The original dataset consists of scientific articles obtained from the arXiv repository, including article identifiers, abstracts, full-text content, and section-level information.
 
 Based on this original collection, a processed dataset was prepared for the CLiRSum multi-task scientific document summarization experiments. Additional preprocessing was performed to extract article titles and Introduction sections and construct the textual fields required for the experimental tasks.
 
@@ -58,8 +69,10 @@ These variants were used to investigate the effects of input selection strategie
 
 ## Citation
 
-If you use the original arXiv dataset, please cite the following publication:
+If you use the original arXiv dataset, please cite:
 
 Cohan, A., Dernoncourt, F., Kim, D. S., Bui, T., Kim, S., Chang, W., & Goharian, N. (2018). A Discourse-Aware Attention Model for Abstractive Summarization of Long Documents. *Proceedings of the 2018 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies*, 615–621.
 
 https://doi.org/10.18653/v1/N18-2097
+
+If you use the processed CLiRSum dataset or associated resources, please also cite the CLiRSum research paper.
