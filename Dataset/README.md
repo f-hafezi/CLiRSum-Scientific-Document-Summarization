@@ -2,20 +2,25 @@
 
 **Authors:** Fahimeh Hafezi¹, Marziea Rahimi¹*, and Zahra Rahimi²
 
+**Co-author Contact:** Fahimeh Hafezi  
+**Email:** fhafezi@shahroodut.ac.ir
+
 **Corresponding Author:** Marziea Rahimi  
 **Email:** Marziea.rahimi@shahroodut.ac.ir
 
+**Co-author Contact:** Zahra Rahimi 
+**Email:**  za.rah@atu.ac.ir
 ---
 
 # Dataset
 
 ## Overview
 
-This repository provides the datasets and associated resources used in the study entitled **"CLiRSum: Exploiting Cross-Level Information Relationships for Multi-Task Scientific Document Summarization."**
+This repository provides the processed dataset used in the study entitled *"CLiRSum: Exploiting Cross-Level Information Relationships for Multi-Task Scientific Document Summarization."*
 
-The study uses the arXiv scientific article dataset released by Cohan et al. [1]. The original dataset consists of scientific articles obtained from the arXiv repository, including article identifiers, abstracts, full-text content, and section-level information.
+The original data were obtained from the arXiv scientific article dataset released by Cohan et al. [1]. This collection consists of scientific articles from multiple research fields and includes article identifiers, abstracts, full-text content, and section-level information.
 
-Based on this original collection, a processed dataset was prepared for the CLiRSum multi-task scientific document summarization experiments. Additional preprocessing was performed to extract article titles and Introduction sections and construct the textual fields required for the experimental tasks.
+Based on the original collection, a processed dataset was prepared for the CLiRSum multi-task scientific document summarization experiments. Additional preprocessing was performed to extract article titles and Introduction sections and construct the textual fields required for the experimental tasks.
 
 ## Dataset Sources
 
@@ -29,7 +34,7 @@ The original dataset and its associated resources are available through the foll
 
 ## Processed Dataset Used in This Study
 
-The processed dataset generated from the original arXiv collection and used in this study is available at the following link:
+The processed dataset generated from the original arXiv collection and used in this study is available at:
 
 **[Download the Processed CLiRSum Dataset](YOUR_PUBLIC_DATASET_LINK)**
 
@@ -69,10 +74,18 @@ These variants were used to investigate the effects of input selection strategie
 
 ## Citation
 
-If you use the original arXiv dataset, please cite:
+If you use the original arXiv dataset, please cite the following publication:
 
 Cohan, A., Dernoncourt, F., Kim, D. S., Bui, T., Kim, S., Chang, W., & Goharian, N. (2018). A Discourse-Aware Attention Model for Abstractive Summarization of Long Documents. *Proceedings of the 2018 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies*, 615–621.
 
 https://doi.org/10.18653/v1/N18-2097
 
-If you use the processed CLiRSum dataset or associated resources, please also cite the CLiRSum research paper.
+If you use the processed dataset or code provided in this repository, please also cite the CLiRSum study.
+
+## Contact
+
+For questions regarding the dataset or the associated code, please contact:
+
+- **Marziea Rahimi:** Marziea.rahimi@shahroodut.ac.ir
+- **Fahimeh Hafezi:** fhafezi@shahroodut.ac.ir
+- **Zahra Rahimi:** za.rah@atu.ac.ir
