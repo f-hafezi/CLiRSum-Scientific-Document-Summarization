@@ -8,8 +8,9 @@
 **Corresponding Author:** Marziea Rahimi  
 **Email:** Marziea.rahimi@shahroodut.ac.ir
 
-**Co-author Contact:** Zahra Rahimi 
-**Email:**  za.rah@atu.ac.ir
+**Co-author Contact:** Zahra Rahimi  
+**Email:** za.rah@atu.ac.ir
+
 ---
 
 # Dataset
@@ -86,6 +87,6 @@ If you use the processed dataset or code provided in this repository, please als
 
 For questions regarding the dataset or the associated code, please contact:
 
-- **Marziea Rahimi:** Marziea.rahimi@shahroodut.ac.ir
 - **Fahimeh Hafezi:** fhafezi@shahroodut.ac.ir
+- **Marziea Rahimi:** Marziea.rahimi@shahroodut.ac.ir
 - **Zahra Rahimi:** za.rah@atu.ac.ir
