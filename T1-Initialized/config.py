@@ -37,7 +37,17 @@ TASK_PREFIXES = {
 }
 INPUT_MAX_LENGTHS = {0: 1024, 1: 1024, 2: 512, 3: 256}
 TARGET_MAX_LENGTHS = {0: 512, 1: 256, 2: 256, 3: 32}
-TASK_WEIGHTS = {0: 1.5, 1: 1.0, 2: 1.0, 3: 0.8}
+# Initial weights for dynamic task weighting
+TASK_WEIGHTS = {
+    0: 0.25,
+    1: 0.25,
+    2: 0.25,
+    3: 0.25
+}
+
+DYNAMIC_TEMPERATURE = 2.0
+DYNAMIC_MOMENTUM = 0.9
+TASK_LOSS_HISTORY_SIZE = 20
 
 GENERATION_CONFIG = {
     "max_length": 512,
