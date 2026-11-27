@@ -46,19 +46,7 @@ Two model configurations are provided:
 | `T1-Initialized/` | Model initialized through single-task training on T1. |
 | `Model_T1-Init + T2-AddIntro/` | Model incorporating T1 initialization and the T2 input configuration with the Introduction preserved. |
 
-## Evaluation
 
-Evaluation scripts:
-
-```text
-src/evaluation.py
-```
-
-Experimental results and comparison tables:
-
-```text
-appendix.md
-```
 
 ## License
 
