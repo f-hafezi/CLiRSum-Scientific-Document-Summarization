@@ -162,3 +162,121 @@ tokenizer.save_pretrained(final_model_path)
 
 print("T1 INITIALIZATION COMPLETED")
 print("Model saved successfully.")
+
+
+# =====================================
+# Stage 2: Multi-task Training
+# =====================================
+
+print("Starting Multi-task Training...")
+
+
+# Load T1 initialized model
+model = BartForConditionalGeneration.from_pretrained(
+    final_model_path,
+    use_cache=False
+)
+
+model.to("cuda")
+model.gradient_checkpointing_enable()
+
+
+# Multi-task checkpoint
+multi_task_checkpoint = (
+    "model_seri1/model_t1t2_6/model/"
+    "multi_task_dynamic_checkpoints"
+)
+
+os.makedirs(multi_task_checkpoint, exist_ok=True)
+
+
+# Multi-task Training Arguments
+multi_task_training_args = TrainingArguments(
+
+    output_dir=multi_task_checkpoint,
+
+    num_train_epochs=5,
+
+    per_device_train_batch_size=32,
+
+    per_device_eval_batch_size=32,
+
+    gradient_accumulation_steps=1,
+
+    warmup_steps=300,
+
+    learning_rate=3e-5,
+
+    weight_decay=0.01,
+
+    logging_steps=100,
+
+    save_strategy="epoch",
+
+    save_total_limit=1,
+
+    eval_strategy="epoch",
+
+    report_to="none",
+
+    fp16=True,
+
+    lr_scheduler_type="cosine",
+
+    dataloader_drop_last=True,
+
+    remove_unused_columns=False,
+)
+
+
+# Multi-task Trainer with Dynamic Weighting
+multi_task_trainer = CustomTrainer(
+
+    model=model,
+
+    args=multi_task_training_args,
+
+    train_dataset=train_dataset,
+
+    eval_dataset=eval_dataset,
+
+    data_collator=data_collator,
+
+    task_weights=None,
+
+    pad_token_id=tokenizer.pad_token_id,
+
+    target_max_lengths=target_max_lengths,
+
+    dynamic_task_weighting=True,
+
+    temperature=2.0,
+
+    momentum=0.9,
+
+    num_tasks=4
+)
+
+
+# Start Multi-task Training
+multi_task_trainer.train()
+
+
+# Save final model
+multi_task_final_path = (
+    "model_seri1/model_t1t2_6/model/"
+    "final_dynamic_multi_task_model"
+)
+
+os.makedirs(multi_task_final_path, exist_ok=True)
+
+model.save_pretrained(multi_task_final_path)
+
+tokenizer.save_pretrained(multi_task_final_path)
+
+
+print("MULTI-TASK TRAINING COMPLETED")
+print("FINAL MODEL SAVED SUCCESSFULLY")
+
+
+
