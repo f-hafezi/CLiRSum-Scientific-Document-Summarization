@@ -1,41 +1,38 @@
+# CLiRSum-Dataset
 # CLiRSum: Exploiting Cross-Level Information Relationships for Multi-Task Scientific Document Summarization
 
 **Authors:** Fahimeh Hafezi¹, Marziea Rahimi¹*, and Zahra Rahimi²
 
-**Co-author Contact:** Fahimeh Hafezi  
-**Email:** fhafezi@shahroodut.ac.ir
-
 **Corresponding Author:** Marziea Rahimi  
 **Email:** Marziea.rahimi@shahroodut.ac.ir
 
-**Co-author Contact:** Zahra Rahimi  
-**Email:** za.rah@atu.ac.ir
+**Co-authors:**  
+- Fahimeh Hafezi — fhafezi@shahroodut.ac.ir
+- Zahra Rahimi — za.rah@atu.ac.ir
 
 ---
 
-# Dataset
-
 ## Overview
 
-This repository provides the processed dataset used in the study entitled *"CLiRSum: Exploiting Cross-Level Information Relationships for Multi-Task Scientific Document Summarization."*
+This repository provides the processed dataset and associated resources for the study entitled *"CLiRSum: Exploiting Cross-Level Information Relationships for Multi-Task Scientific Document Summarization."*
 
-The original data were obtained from the arXiv scientific article dataset released by Cohan et al. [1]. This collection consists of scientific articles from multiple research fields and includes article identifiers, abstracts, full-text content, and section-level information.
+The original data were obtained from the arXiv scientific article dataset released by Cohan et al. [1]. This collection contains scientific articles from multiple research fields, including article identifiers, abstracts, full-text content, and section-level information.
 
 Based on the original collection, a processed dataset was prepared for the CLiRSum multi-task scientific document summarization experiments. Additional preprocessing was performed to extract article titles and Introduction sections and construct the textual fields required for the experimental tasks.
 
-## Dataset Sources
+## Original Dataset Sources
 
-The original dataset and its associated resources are available through the following sources:
+The original dataset and its associated research publication are available through the following sources:
 
-- **Original arXiv dataset download mirror:** https://archive.org/download/armancohan-long-summarization-paper-code/arxiv-dataset.zip
-- **Original research paper:** https://aclanthology.org/N18-2097/
-
+- **Original dataset download:** [arXiv Dataset](https://archive.org/download/armancohan-long-summarization-paper-code/arxiv-dataset.zip)
+- **Original research paper:** [Cohan et al. (2018)](https://aclanthology.org/N18-2097/)
+- **Original GitHub repository:** [long-summarization](https://github.com/armancohan/long-summarization)
 
 ## Processed Dataset Used in This Study
 
 The processed dataset generated from the original arXiv collection and used in this study is available at:
 
-**[Download the Processed CLiRSum Dataset](YOUR_PUBLIC_DATASET_LINK)**
+**[Access the Processed CLiRSum Dataset](https://drive.google.com/file/d/1SA3Y-PmdO3RdTmr6WXqEqhiqetE1E5WN/view?usp=sharing)**
 
 The training and validation subset contains 20,000 randomly selected articles, comprising 18,000 training articles and 2,000 validation articles.
 
@@ -43,7 +40,7 @@ The original arXiv test partition, containing 6,440 articles, was kept separate 
 
 ## Dataset Structure
 
-The processed dataset is provided in CSV format and contains the following columns:
+The processed dataset is organized in CSV format and contains the following columns:
 
 | Column | Description |
 |---|---|
@@ -60,7 +57,7 @@ The processed dataset is provided in CSV format and contains the following colum
 
 The Introduction section was identified using the section-level information in the original dataset. Specifically, the section-name list was searched to locate the Introduction, and the corresponding text was extracted from the section-text list.
 
-The extracted Introduction was then searched within the complete article text and removed to construct `article_text_no_intro`. Article titles were retrieved separately from the arXiv API using their corresponding article identifiers.
+The extracted Introduction was then searched for within the complete article text and removed to construct `article_text_no_intro`. Article titles were retrieved separately from the arXiv API using their corresponding article identifiers.
 
 ## Dataset Variants
 
@@ -69,7 +66,7 @@ Two dataset variants were constructed to investigate different source-input sele
 - **Dataset 1:** Uses beginning-of-text truncation to construct model inputs.
 - **Dataset 2:** Selects input text from four article segments for the article-based tasks (T1 and T2).
 
-These variants were used to investigate the effects of input selection strategies on input-length statistics and semantic coverage.
+These variants were used to examine the effects of different input-selection strategies on the summarization tasks.
 
 ## Citation
 
@@ -79,11 +76,11 @@ Cohan, A., Dernoncourt, F., Kim, D. S., Bui, T., Kim, S., Chang, W., & Goharian,
 
 https://doi.org/10.18653/v1/N18-2097
 
-If you use the processed dataset or code provided in this repository, please also cite the CLiRSum study.
+If you use the processed dataset or associated resources provided in this repository, please also cite the CLiRSum study.
 
 ## Contact
 
-For questions regarding the dataset or the associated code, please contact:
+For questions regarding the dataset or associated resources, please contact:
 
 - **Fahimeh Hafezi:** fhafezi@shahroodut.ac.ir
 - **Marziea Rahimi:** Marziea.rahimi@shahroodut.ac.ir
