@@ -27,11 +27,9 @@ Based on the original collection, a processed dataset was prepared for the CLiRS
 
 The original dataset and its associated resources are available through the following sources:
 
-- **Original dataset repository:** https://github.com/armancohan/long-summarization
 - **Original arXiv dataset download mirror:** https://archive.org/download/armancohan-long-summarization-paper-code/arxiv-dataset.zip
 - **Original research paper:** https://aclanthology.org/N18-2097/
-- **arXiv version of the paper:** https://arxiv.org/abs/1804.05685
-- **arXiv repository:** https://arxiv.org/
+
 
 ## Processed Dataset Used in This Study
 
