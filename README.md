@@ -47,6 +47,15 @@ Two model configurations are provided:
 | `Model_T1-Init + T2-AddIntro/` | Model incorporating T1 initialization and the T2 input configuration with the Introduction preserved. |
 
 
+## Dataset
+
+The dataset used in this study is publicly available through Zenodo and GitHub:
+
+- **Zenodo (DOI):** https://doi.org/10.5281/zenodo.24592101
+- **GitHub:** https://github.com/f-hafezi/CLiRSum-Dataset
+
+For details on the dataset structure, preprocessing, and experimental variants, please refer to the dataset repository.
+
 ## Citation
 
 If you use this repository, its code, or the provided models in your research, please cite our work:   
