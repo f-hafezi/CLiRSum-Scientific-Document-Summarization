@@ -32,7 +32,10 @@ The original dataset and its associated research publication are available throu
 
 The processed dataset generated from the original arXiv collection and used in this study is available at:
 
-**[Access the Processed CLiRSum Dataset](https://drive.google.com/file/d/1SA3Y-PmdO3RdTmr6WXqEqhiqetE1E5WN/view?usp=sharing)**
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24592101.svg)](https://doi.org/10.5281/zenodo.24592101)
+
+**Dataset DOI:** https://doi.org/10.5281/zenodo.24592101
+
 
 The training and validation subset contains 20,000 randomly selected articles, comprising 18,000 training articles and 2,000 validation articles.
 
