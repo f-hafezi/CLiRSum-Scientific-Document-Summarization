@@ -81,6 +81,8 @@ https://doi.org/10.18653/v1/N18-2097
 
 If you use the processed dataset or associated resources provided in this repository, please also cite the CLiRSum study.
 
+Fahimeh Hafezi, Marziea Rahimi, & Zahra Rahimi. (2026). Dataset: CLiRSum: Exploiting Cross-Level Information Relationships for Multi-Task Scientific Document Summarization [Dataset]. Zenodo. https://doi.org/10.5281/zenodo.24592101
+
 ## Contact
 
 For questions regarding the dataset or associated resources, please contact:
