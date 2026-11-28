@@ -61,6 +61,8 @@ For details on the dataset structure, preprocessing, and experimental variants, 
 
 If you use this repository, its code, or the provided models in your research, please cite our work:   
 
+Fahimeh Hafezi, Marziea Rahimi, and Zahra Rahimi. CLiRSum: Exploiting Cross-Level Information Relationships for Multi-Task Scientific Document Summarization. Manuscript submitted for publication.
+
 ## License
 
 Please refer to the repository license for terms of use.
