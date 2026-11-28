@@ -52,7 +52,7 @@ Two model configurations are provided:
 The dataset used in this study is publicly available through Zenodo and GitHub:
 
 - **Zenodo (DOI):** https://doi.org/10.5281/zenodo.24592101
-- **GitHub:** https://github.com/f-hafezi/CLiRSum-Dataset
+- **GitHub:** [https://github.com/f-hafezi/CLiRSum-Dataset](https://github.com/f-hafezi/CLiRSum-Scientific-Document-Summarization/blob/main/Dataset/README.md)
 
 For details on the dataset structure, preprocessing, and experimental variants, please refer to the dataset repository.
 
