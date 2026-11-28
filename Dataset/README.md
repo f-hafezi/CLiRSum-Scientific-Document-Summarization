@@ -75,13 +75,13 @@ These variants were used to examine the effects of different input-selection str
 
 If you use the original arXiv dataset, please cite the following publication:
 
-Cohan, A., Dernoncourt, F., Kim, D. S., Bui, T., Kim, S., Chang, W., & Goharian, N. (2018). A Discourse-Aware Attention Model for Abstractive Summarization of Long Documents. *Proceedings of the 2018 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies*, 615–621.
+[1] Cohan, A., Dernoncourt, F., Kim, D. S., Bui, T., Kim, S., Chang, W., & Goharian, N. (2018). A Discourse-Aware Attention Model for Abstractive Summarization of Long Documents. *Proceedings of the 2018 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies*, 615–621.
 
 https://doi.org/10.18653/v1/N18-2097
 
 If you use the processed dataset or associated resources provided in this repository, please also cite the CLiRSum study.
 
-Fahimeh Hafezi, Marziea Rahimi, & Zahra Rahimi. (2026). Dataset: CLiRSum: Exploiting Cross-Level Information Relationships for Multi-Task Scientific Document Summarization [Dataset]. Zenodo. https://doi.org/10.5281/zenodo.24592101
+[2] Fahimeh Hafezi, Marziea Rahimi, & Zahra Rahimi. (2026). Dataset: CLiRSum: Exploiting Cross-Level Information Relationships for Multi-Task Scientific Document Summarization [Dataset]. Zenodo. https://doi.org/10.5281/zenodo.24592101
 
 ## Contact
 
